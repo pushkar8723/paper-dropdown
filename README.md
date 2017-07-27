@@ -11,12 +11,17 @@ Values can be bound using `value` attribute.
 <!--
 ```
 <custom-element-demo>
-  <template>
-    <link rel="import" href="paper-dropdown.html">
-    <link rel="import" href="../paper-item/paper-item.html">
-    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
-    <next-code-block></next-code-block>
-  </template>
+    <template>
+        <link rel="import" href="paper-dropdown.html">
+        <link rel="import" href="../paper-item/paper-item.html">
+        <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+        <style is="custom-style" include="demo-pages-shared-styles">
+            paper-dropdown {
+                height: 300px;
+            }
+        </style>
+        <next-code-block></next-code-block>
+    </template>
 </custom-element-demo>
 ```
 -->
@@ -37,12 +42,17 @@ label is what user sees. This can be done using `value` attribute for `paper-ite
 <!--
 ```
 <custom-element-demo>
-  <template>
-    <link rel="import" href="paper-dropdown.html">
-    <link rel="import" href="../paper-item/paper-item.html">
-    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
-    <next-code-block></next-code-block>
-  </template>
+    <template>
+        <link rel="import" href="paper-dropdown.html">
+        <link rel="import" href="../paper-item/paper-item.html">
+        <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+        <style is="custom-style" include="demo-pages-shared-styles">
+            paper-dropdown {
+                height: 300px;
+            }
+        </style>
+        <next-code-block></next-code-block>
+    </template>
 </custom-element-demo>
 ```
 -->
@@ -64,12 +74,17 @@ out the items in the dropdown.
 <!--
 ```
 <custom-element-demo>
-  <template>
-    <link rel="import" href="paper-dropdown.html">
-    <link rel="import" href="../paper-item/paper-item.html">
-    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
-    <next-code-block></next-code-block>
-  </template>
+    <template>
+        <link rel="import" href="paper-dropdown.html">
+        <link rel="import" href="../paper-item/paper-item.html">
+        <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+        <style is="custom-style" include="demo-pages-shared-styles">
+            paper-dropdown {
+                height: 300px;
+            }
+        </style>
+        <next-code-block></next-code-block>
+    </template>
 </custom-element-demo>
 ```
 -->
