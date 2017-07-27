@@ -1,0 +1,30 @@
+{
+  "name": "paper-dropdown",
+  "authors": [
+    "Pushkar Anand <pushkar8723@gmail.com>"
+  ],
+  "description": "Wrapper for paper-dropdown to facilitate 2-way binding on value in fewer lines HTML code and also enable filter on items.",
+  "main": "paper-dropdown.html",
+  "keywords": [
+    "paper-dropdown",
+    "paper-select",
+    "material",
+    "select"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://pushkar8723.github.io/paper-dropdown",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
+    "paper-listbox": "PolymerElements/paper-listbox#^1.0.0",
+    "paper-item": "PolymerElements/paper-item#^1.0.0",
+    "iron-input": "PolymerElements/iron-input#^1.0.0"
+  }
+}

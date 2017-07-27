@@ -1,0 +1,762 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "",
+      "summary": "",
+      "path": "paper-dropdown.html",
+      "properties": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Label shown against the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 126,
+              "column": 16
+            },
+            "end": {
+              "line": 128,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "value",
+          "type": "Object",
+          "description": "Value of the dropdown",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 133,
+              "column": 16
+            },
+            "end": {
+              "line": 137,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_updatedSelected\""
+            }
+          }
+        },
+        {
+          "name": "selected",
+          "type": "number",
+          "description": "Index of the selected item.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 142,
+              "column": 16
+            },
+            "end": {
+              "line": 147,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_updateValue\""
+            }
+          },
+          "defaultValue": "-1"
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "description": "This is true if the dropdown is in open state",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 16
+            },
+            "end": {
+              "line": 157,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_onOpenedChanged\""
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "description": "If true, a text field is shown at the top of dropdown which\nuser can use to search/filter for an item.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 16
+            },
+            "end": {
+              "line": 166,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "description": "The error message to display when invalid.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 171,
+              "column": 16
+            },
+            "end": {
+              "line": 173,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "allowOutsideScroll",
+          "type": "boolean",
+          "description": "By default, the dropdown will constrain scrolling on the page\nto itself when opened.\nSet to true in order to prevent scroll from being constrained\nto the dropdown when it opens.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 16
+            },
+            "end": {
+              "line": 184,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "noLabelFloat",
+          "type": "boolean",
+          "description": "Set to true to disable the floating label. Bind this to the\n`<paper-input-container>`'s `noLabelFloat` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 190,
+              "column": 16
+            },
+            "end": {
+              "line": 194,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "alwaysFloatLabel",
+          "type": "boolean",
+          "description": "Set to true to always float the label. Bind this to the\n`<paper-input-container>`'s `alwaysFloatLabel` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 200,
+              "column": 16
+            },
+            "end": {
+              "line": 203,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "noAnimations",
+          "type": "boolean",
+          "description": "Set to true to disable animations when opening and closing the\ndropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 16
+            },
+            "end": {
+              "line": 212,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "horizontalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the menu dropdown\nhorizontally relative to the dropdown trigger.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 218,
+              "column": 16
+            },
+            "end": {
+              "line": 221,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"right\""
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the menu dropdown\nvertically relative to the dropdown trigger.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 227,
+              "column": 16
+            },
+            "end": {
+              "line": 230,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"top\""
+        },
+        {
+          "name": "dynamicAlign",
+          "type": "boolean",
+          "description": "If true, the `horizontalAlign` and `verticalAlign` properties will\nbe considered preferences instead of strict requirements when\npositioning the dropdown and may be changed if doing so reduces\nthe area of the dropdown falling outside of `fitInto`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 16
+            },
+            "end": {
+              "line": 240,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "restoreFocusOnClose",
+          "type": "boolean",
+          "description": "Whether focus should be restored to the dropdown when the menu closes.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 245,
+              "column": 16
+            },
+            "end": {
+              "line": 248,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "true"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ready",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 253,
+              "column": 12
+            },
+            "end": {
+              "line": 255,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_getItemValue",
+          "description": "Returns the value of the item for given index.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 265,
+              "column": 12
+            },
+            "end": {
+              "line": 270,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index",
+              "description": "Index of the item"
+            },
+            {
+              "name": "items",
+              "description": "Items in the listbox"
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Value of the item."
+          }
+        },
+        {
+          "name": "_getItemLabel",
+          "description": "Returns the Label shown to user for the item at the\ngiven index.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 281,
+              "column": 12
+            },
+            "end": {
+              "line": 283,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index",
+              "description": "Index of the item."
+            },
+            {
+              "name": "items",
+              "description": "Items in listbox."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Label of the item."
+          }
+        },
+        {
+          "name": "_updatedSelected",
+          "description": "Updates `value` property according to `selected` property.\nSets selected to -1 if value is not found.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 292,
+              "column": 12
+            },
+            "end": {
+              "line": 301,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "name": "_updateValue",
+          "description": "Updates `value` property according to `selected` property.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 309,
+              "column": 12
+            },
+            "end": {
+              "line": 317,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            }
+          ]
+        },
+        {
+          "name": "_onOpenedChanged",
+          "description": "Called whenever `opened` changes.\nFires `opened` or `closed` events.\nAlso, clears `_searchText` variable on close.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 327,
+              "column": 12
+            },
+            "end": {
+              "line": 334,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "opened"
+            }
+          ]
+        },
+        {
+          "name": "_stopEventPropagation",
+          "description": "Stops event propagation.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 342,
+              "column": 12
+            },
+            "end": {
+              "line": 344,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e",
+              "description": "Event"
+            }
+          ]
+        },
+        {
+          "name": "_filter",
+          "description": "Shows/Hides listbox items based on searchText",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 352,
+              "column": 12
+            },
+            "end": {
+              "line": 369,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "searchText",
+              "description": "Text to be matched in item's label."
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 107,
+          "column": 16
+        },
+        "end": {
+          "line": 370,
+          "column": 9
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "Label shown against the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 126,
+              "column": 16
+            },
+            "end": {
+              "line": 128,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "description": "Value of the dropdown",
+          "sourceRange": {
+            "start": {
+              "line": 133,
+              "column": 16
+            },
+            "end": {
+              "line": 137,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "selected",
+          "description": "Index of the selected item.",
+          "sourceRange": {
+            "start": {
+              "line": 142,
+              "column": 16
+            },
+            "end": {
+              "line": 147,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "opened",
+          "description": "This is true if the dropdown is in open state",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 16
+            },
+            "end": {
+              "line": 157,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "searchable",
+          "description": "If true, a text field is shown at the top of dropdown which\nuser can use to search/filter for an item.",
+          "sourceRange": {
+            "start": {
+              "line": 163,
+              "column": 16
+            },
+            "end": {
+              "line": 166,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "error-message",
+          "description": "The error message to display when invalid.",
+          "sourceRange": {
+            "start": {
+              "line": 171,
+              "column": 16
+            },
+            "end": {
+              "line": 173,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "allow-outside-scroll",
+          "description": "By default, the dropdown will constrain scrolling on the page\nto itself when opened.\nSet to true in order to prevent scroll from being constrained\nto the dropdown when it opens.",
+          "sourceRange": {
+            "start": {
+              "line": 181,
+              "column": 16
+            },
+            "end": {
+              "line": 184,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "no-label-float",
+          "description": "Set to true to disable the floating label. Bind this to the\n`<paper-input-container>`'s `noLabelFloat` property.",
+          "sourceRange": {
+            "start": {
+              "line": 190,
+              "column": 16
+            },
+            "end": {
+              "line": 194,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "always-float-label",
+          "description": "Set to true to always float the label. Bind this to the\n`<paper-input-container>`'s `alwaysFloatLabel` property.",
+          "sourceRange": {
+            "start": {
+              "line": 200,
+              "column": 16
+            },
+            "end": {
+              "line": 203,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "no-animations",
+          "description": "Set to true to disable animations when opening and closing the\ndropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 16
+            },
+            "end": {
+              "line": 212,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "horizontal-align",
+          "description": "The orientation against which to align the menu dropdown\nhorizontally relative to the dropdown trigger.",
+          "sourceRange": {
+            "start": {
+              "line": 218,
+              "column": 16
+            },
+            "end": {
+              "line": 221,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "vertical-align",
+          "description": "The orientation against which to align the menu dropdown\nvertically relative to the dropdown trigger.",
+          "sourceRange": {
+            "start": {
+              "line": 227,
+              "column": 16
+            },
+            "end": {
+              "line": 230,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "dynamic-align",
+          "description": "If true, the `horizontalAlign` and `verticalAlign` properties will\nbe considered preferences instead of strict requirements when\npositioning the dropdown and may be changed if doing so reduces\nthe area of the dropdown falling outside of `fitInto`.",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 16
+            },
+            "end": {
+              "line": 240,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "restore-focus-on-close",
+          "description": "Whether focus should be restored to the dropdown when the menu closes.",
+          "sourceRange": {
+            "start": {
+              "line": 245,
+              "column": 16
+            },
+            "end": {
+              "line": 248,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "close",
+          "description": "close",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "open",
+          "description": "open",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "value-changed",
+          "description": "Fired when the `value` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-changed",
+          "description": "Fired when the `selected` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "opened-changed",
+          "description": "Fired when the `opened` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "paper-dropdown"
+    }
+  ]
+}

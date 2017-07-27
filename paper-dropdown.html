@@ -1,0 +1,373 @@
+<!--
+@license
+    Wrapper for paper-dropdown-menu
+    Copyright (C) 2017  Pushkar Anand
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-input/iron-input.html">
+
+<!--
+    `paper-dropdown` is a wrapper for paper-dropdown to facilitate 2-way binding
+    on value in fewer lines of HTML code and also enable filter on items.
+
+    Values can be bound using `value` attribute.
+
+        <paper-dropdown label="Fruit" value="{{value}}">
+            <paper-item>Apple</paper-item>
+            <paper-item>Banana</paper-item>
+            <paper-item>Carrot</paper-item>
+            <paper-item>Mango</paper-item>
+            <paper-item>Orange</paper-item>
+        </paper-dropdown>
+
+    Each item can have a key-label pair where key is what stored in the model but
+    label is what user sees. This can be done using `value` attribute for `paper-item`
+
+        <paper-dropdown label="Fruit" value="{{value}}">
+            <paper-item value="apple">Apple</paper-item>
+            <paper-item value="banana">Banana</paper-item>
+            <paper-item value="carrot">Carrot</paper-item>
+            <paper-item value="mango">Mango</paper-item>
+            <paper-item value="orange">Orange</paper-item>
+        </paper-dropdown>
+
+    It also has an optional parameter named `searchable`, which when set to true
+    will add a text field at the start of the dropdown which users can use to filter
+    out the items in the dropdown.
+
+        <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
+            <paper-item value="apple">Apple</paper-item>
+            <paper-item value="banana">Banana</paper-item>
+            <paper-item value="carrot">Carrot</paper-item>
+            <paper-item value="mango">Mango</paper-item>
+            <paper-item value="orange">Orange</paper-item>
+        </paper-dropdown>
+
+    @element paper-dropdown
+    @demo demo/index.html
+-->
+
+<dom-module is="paper-dropdown">
+    <style>
+        #searchBox {
+            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+            padding: 0 2px 0 16px;
+            border: none;
+            height: 48px;
+            line-height: 48px;
+        }
+
+        #searchBox:focus {
+            outline: none;
+        }
+    </style>
+    <template>
+        <paper-dropdown-menu
+                label="{{label}}"
+                opened="{{opened}}"
+                error-message="{{errorMessage}}"
+                allow-outside-scroll="{{allowOutsideScroll}}"
+                no-label-float="{{noLabelFloat}}"
+                always-float-label="{{alwaysFloatLabel}}"
+                no-animations="{{noAnimations}}"
+                horizontal-align="{{horizontalAlign}}"
+                vertical-align="{{verticalAlign}}"
+                dynamic-align="{{dynamicAlign}}"
+                restore-focus-on-close="{{restoreFocusOnClose}}"
+        >
+            <paper-listbox id="list" class="dropdown-content" selected="{{selected}}">
+                <template is="dom-if" if="{{searchable}}">
+                    <input
+                            is="iron-input"
+                            placeholder="Search..."
+                            id="searchBox"
+                            bind-value="{{_searchText}}"
+                            type="text"
+                            on-tap="_stopEventPropagation"
+                            on-keydown="_stopEventPropagation"
+                            on-keyup="_stopEventPropagation"/>
+                </template>
+                <content></content>
+            </paper-listbox>
+        </paper-dropdown-menu>
+    </template>
+    <script>
+        Polymer({
+            is: 'paper-dropdown',
+
+            /**
+             * Fired when dropdown opens.
+             *
+             * @event open
+             */
+
+            /**
+             * Fired when dropdown closes.
+             *
+             * @event close
+             */
+
+            properties: {
+                /**
+                 * Label shown against the dropdown.
+                 */
+                label: {
+                    type: String
+                },
+
+                /**
+                 * Value of the dropdown
+                 */
+                value: {
+                    type: Object,
+                    observer: '_updatedSelected',
+                    notify: true
+                },
+
+                /**
+                 * Index of the selected item.
+                 */
+                selected: {
+                    type: Number,
+                    value: -1,
+                    observer: '_updateValue',
+                    notify: true
+                },
+
+                /**
+                 * This is true if the dropdown is in open state
+                 */
+                opened: {
+                    type: Boolean,
+                    notify: true,
+                    value: false,
+                    observer: '_onOpenedChanged'
+                },
+
+                /**
+                 * If true, a text field is shown at the top of dropdown which
+                 * user can use to search/filter for an item.
+                 */
+                searchable: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * The error message to display when invalid.
+                 */
+                errorMessage: {
+                    type: String
+                },
+
+                /**
+                 * By default, the dropdown will constrain scrolling on the page
+                 * to itself when opened.
+                 * Set to true in order to prevent scroll from being constrained
+                 * to the dropdown when it opens.
+                 */
+                allowOutsideScroll: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * Set to true to disable the floating label. Bind this to the
+                 * `<paper-input-container>`'s `noLabelFloat` property.
+                 */
+                noLabelFloat: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 * Set to true to always float the label. Bind this to the
+                 * `<paper-input-container>`'s `alwaysFloatLabel` property.
+                 */
+                alwaysFloatLabel: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * Set to true to disable animations when opening and closing the
+                 * dropdown.
+                 */
+                noAnimations: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * The orientation against which to align the menu dropdown
+                 * horizontally relative to the dropdown trigger.
+                 */
+                horizontalAlign: {
+                    type: String,
+                    value: 'right'
+                },
+
+                /**
+                 * The orientation against which to align the menu dropdown
+                 * vertically relative to the dropdown trigger.
+                 */
+                verticalAlign: {
+                    type: String,
+                    value: 'top'
+                },
+
+                /**
+                 * If true, the `horizontalAlign` and `verticalAlign` properties will
+                 * be considered preferences instead of strict requirements when
+                 * positioning the dropdown and may be changed if doing so reduces
+                 * the area of the dropdown falling outside of `fitInto`.
+                 */
+                dynamicAlign: {
+                    type: Boolean
+                },
+
+                /**
+                 * Whether focus should be restored to the dropdown when the menu closes.
+                 */
+                restoreFocusOnClose: {
+                    type: Boolean,
+                    value: true
+                }
+            },
+            observers: [
+                '_filter(_searchText)'
+            ],
+            ready: function () {
+                this.set('_searchText', '');
+            },
+
+            /**
+             * Returns the value of the item for given index.
+             *
+             * @param index Index of the item
+             * @param items Items in the listbox
+             * @returns {string} Value of the item.
+             * @private
+             */
+            _getItemValue: function (index, items) {
+                if (items[index].getAttribute('value'))
+                    return items[index].getAttribute('value');
+                else
+                    return items[index].textContent.trim();
+            },
+
+            /**
+             * Returns the Label shown to user for the item at the
+             * given index.
+             *
+             * @param index Index of the item.
+             * @param items Items in listbox.
+             * @returns {string} Label of the item.
+             * @private
+             */
+            _getItemLabel: function (index, items) {
+                return items[index].textContent.trim();
+            },
+
+            /**
+             * Updates `value` property according to `selected` property.
+             * Sets selected to -1 if value is not found.
+             *
+             * @param value
+             * @private
+             */
+            _updatedSelected: function (value) {
+                var items = this.$.list.items;
+                for (var i = 0; i < items.length; ++i) {
+                    if (this._getItemValue(i, items) == value) {
+                        this.set('selected', i);
+                        return;
+                    }
+                }
+                this.set('selected', -1);
+            },
+
+            /**
+             * Updates `value` property according to `selected` property.
+             *
+             * @param selected
+             * @private
+             */
+            _updateValue: function (selected) {
+                if (selected > -1) {
+                    var items = this.$.list.items;
+                    this.set('value', this._getItemValue(selected, items));
+                    return;
+                } else {
+                    this.set('value', null);
+                }
+            },
+
+            /**
+             * Called whenever `opened` changes.
+             * Fires `opened` or `closed` events.
+             * Also, clears `_searchText` variable on close.
+             *
+             * @param opened
+             * @private
+             */
+            _onOpenedChanged: function (opened) {
+                if (opened) {
+                    this.fire('open');
+                } else {
+                    this.set('_searchText', '');
+                    this.fire('close');
+                }
+            },
+
+            /**
+             * Stops event propagation.
+             *
+             * @param e Event
+             * @private
+             */
+            _stopEventPropagation: function (e) {
+                e.stopPropagation();
+            },
+
+            /**
+             * Shows/Hides listbox items based on searchText
+             *
+             * @param searchText Text to be matched in item's label.
+             * @private
+             */
+            _filter: function (searchText) {
+                var items = this.$.list.items;
+                for (var i in items) {
+                    var currentValue = this._getItemLabel(i, items);
+                    var display;
+                    if (searchText == "" || currentValue == "") {
+                        display = 'flex';
+                    } else {
+                        var re = new RegExp(this._searchText, "gi");
+                        if (re.exec(currentValue) != null) {
+                            display = 'flex';
+                        } else {
+                            display = 'none';
+                        }
+                    }
+                    items[i].style.display = display;
+                }
+            }
+        })
+    </script>
+</dom-module>
