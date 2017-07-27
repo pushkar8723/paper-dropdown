@@ -6,6 +6,20 @@
 on value in fewer lines of HTML code and also enable filter on items.
 
 Values can be bound using `value` attribute.
+
+**Example**
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="paper-dropdown.html">
+    <link rel="import" href="../paper-item/paper-item.html">
+    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <paper-dropdown label="Fruit" value="{{value}}">
     <paper-item>Apple</paper-item>
@@ -19,12 +33,14 @@ Values can be bound using `value` attribute.
 Each item can have a key-label pair where key is what stored in the model but
 label is what user sees. This can be done using `value` attribute for `paper-item`
 
+**Example**
 <!--
 ```
 <custom-element-demo>
   <template>
     <link rel="import" href="paper-dropdown.html">
-    <link rel="import" href="paper-item.html">
+    <link rel="import" href="../paper-item/paper-item.html">
+    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -44,6 +60,19 @@ It also has an optional parameter named `searchable`, which when set to true
 will add a text field at the start of the dropdown which users can use to filter
 out the items in the dropdown.
 
+**Example**
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="paper-dropdown.html">
+    <link rel="import" href="../paper-item/paper-item.html">
+    <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
     <paper-item value="apple">Apple</paper-item>
