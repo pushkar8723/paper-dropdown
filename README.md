@@ -19,6 +19,17 @@ Values can be bound using `value` attribute.
 Each item can have a key-label pair where key is what stored in the model but
 label is what user sees. This can be done using `value` attribute for `paper-item`
 
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="paper-dropdown.html">
+    <link rel="import" href="paper-item.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <paper-dropdown label="Fruit" value="{{value}}">
     <paper-item value="apple">Apple</paper-item>
