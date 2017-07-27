@@ -3,7 +3,7 @@
   "authors": [
     "Pushkar Anand <pushkar8723@gmail.com>"
   ],
-  "description": "Wrapper for paper-dropdown to facilitate 2-way binding on value in fewer lines HTML code and also enable filter on items.",
+  "description": "Wrapper for paper-dropdown-menu to facilitate 2-way binding on value in fewer lines HTML code and also enable filter on items.",
   "main": "paper-dropdown.html",
   "keywords": [
     "paper-dropdown",

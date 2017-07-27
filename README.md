@@ -2,7 +2,7 @@
 
 ## &lt;paper-dropdown&gt;
 
-`paper-dropdown` is a wrapper for paper-dropdown to facilitate 2-way binding
+`paper-dropdown` is a wrapper for `paper-dropdown-menu` to facilitate 2-way binding
 on value in fewer lines of HTML code and also enable filter on items.
 
 Values can be bound using `value` attribute.
