@@ -29,5 +29,10 @@
     "paper-listbox": "PolymerElements/paper-listbox#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0",
     "iron-input": "PolymerElements/iron-input#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   }
 }
