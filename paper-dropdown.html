@@ -87,8 +87,9 @@
                 vertical-align="{{verticalAlign}}"
                 dynamic-align="{{dynamicAlign}}"
                 restore-focus-on-close="{{restoreFocusOnClose}}"
+                disabled="{{disabled}}"
         >
-            <paper-listbox id="list" class="dropdown-content" selected="{{selected}}">
+            <paper-listbox id="list" items="{{_items}}" class="dropdown-content" selected="{{selected}}">
                 <template is="dom-if" if="{{searchable}}">
                     <input
                             is="iron-input"
@@ -129,11 +130,19 @@
                 },
 
                 /**
+                 * If true, dropdown will be disabled.
+                 */
+                disabled: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
                  * Value of the dropdown
                  */
                 value: {
                     type: Object,
-                    observer: '_updatedSelected',
+                    observer: '_updateSelected',
                     notify: true
                 },
 
@@ -142,7 +151,6 @@
                  */
                 selected: {
                     type: Number,
-                    value: -1,
                     observer: '_updateValue',
                     notify: true
                 },
@@ -249,10 +257,19 @@
                 }
             },
             observers: [
-                '_filter(_searchText)'
+                '_filter(_searchText)',
+                '_itemsChanged(_items)'
             ],
             ready: function () {
                 this.set('_searchText', '');
+            },
+
+            /**
+             * Updates selected on items change.
+             */
+            _itemsChanged: function (items) {
+                if (items.length > 0)
+                    this._updateSelected(this.value);
             },
 
             /**
@@ -290,7 +307,7 @@
              * @param value
              * @private
              */
-            _updatedSelected: function (value) {
+            _updateSelected: function (value) {
                 var items = this.$.list.items;
                 for (var i = 0; i < items.length; ++i) {
                     if (this._getItemValue(i, items) == value) {
