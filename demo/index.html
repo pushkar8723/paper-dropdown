@@ -104,6 +104,24 @@
                 </p>
             </template>
         </demo-snippet>
+
+        <h3>Multiple Select</h3>
+        <demo-snippet>
+            <template is="dom-bind">
+                <!-- See Demo source code to checkout how binding is done. -->
+                <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                    <paper-item value="apple">Apple</paper-item>
+                    <paper-item value="banana">Banana</paper-item>
+                    <paper-item value="carrot">Carrot</paper-item>
+                    <paper-item value="mango">Mango</paper-item>
+                    <paper-item value="orange">Orange</paper-item>
+                </paper-dropdown>
+
+                <p>
+                    <b>Selected Fruit Key(s):</b> {{value}}
+                </p>
+            </template>
+        </demo-snippet>
     </div>
 </body>
 </html>

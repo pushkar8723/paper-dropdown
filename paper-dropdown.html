@@ -1,6 +1,6 @@
 <!--
 @license
-    Wrapper for paper-dropdown-menu
+    paper-dropdown: Wrapper for paper-dropdown-menu
     Copyright (C) 2017  Pushkar Anand
 
     This program is free software: you can redistribute it and/or modify
@@ -55,9 +55,6 @@
             <paper-item value="mango">Mango</paper-item>
             <paper-item value="orange">Orange</paper-item>
         </paper-dropdown>
-
-    @element paper-dropdown
-    @demo demo/index.html
 -->
 
 <dom-module is="paper-dropdown">
@@ -66,6 +63,7 @@
             box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
             padding: 0 2px 0 16px;
             border: none;
+            width: 100%;
             height: 48px;
             line-height: 48px;
         }
@@ -73,9 +71,25 @@
         #searchBox:focus {
             outline: none;
         }
+
+        paper-listbox {
+            overflow-x: hidden;
+        }
+
+        :host[multi] ::content paper-item{
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
+            background-position: 7px 12px;
+            padding-left: 40px;
+        }
+
+        :host[multi] ::content paper-item.iron-selected {
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
+            background-position: 7px 12px;
+        }
     </style>
     <template>
         <paper-dropdown-menu
+                id="dropdownMenu"
                 label="{{label}}"
                 opened="{{opened}}"
                 error-message="{{errorMessage}}"
@@ -88,8 +102,15 @@
                 dynamic-align="{{dynamicAlign}}"
                 restore-focus-on-close="{{restoreFocusOnClose}}"
                 disabled="{{disabled}}"
-        >
-            <paper-listbox id="list" items="{{_items}}" class="dropdown-content" selected="{{selected}}">
+                selected-item="{{_selectedItem}}"
+                selected-item-label="{{_selectedItemLabel}}">
+            <paper-listbox
+                    id="list"
+                    items="{{_items}}"
+                    class="dropdown-content"
+                    selected="{{_selected}}"
+                    selected-items="{{_selectedItems}}"
+                    multi="{{multi}}">
                 <template is="dom-if" if="{{searchable}}">
                     <input
                             is="iron-input"
@@ -106,6 +127,10 @@
         </paper-dropdown-menu>
     </template>
     <script>
+        /**
+         * @element paper-dropdown
+         * @demo demo/index.html
+         */
         Polymer({
             is: 'paper-dropdown',
 
@@ -254,18 +279,96 @@
                 restoreFocusOnClose: {
                     type: Boolean,
                     value: true
+                },
+
+                /**
+                 * If true, multiple options can be selected.
+                 */
+                multi: {
+                    type: Boolean,
+                    value: false,
+                    observer: '_multiChanged'
                 }
             },
             observers: [
                 '_filter(_searchText)',
-                '_itemsChanged(_items)'
+                '_itemsChanged(_items)',
+                '_selectedItemsChanged(_selectedItems)',
+                '_updateSelectedItemLabel(_selectedItemLabel)',
+                '_updateSelectedItemLabel(_selectedItems)'
             ],
             ready: function () {
                 this.set('_searchText', '');
             },
 
             /**
+             * If multi is true, it updates dropdown's menu button
+             * not to close on item select so that user can select
+             * multiple options.
+             *
+             * @param multi
+             * @private
+             */
+            _multiChanged: function (multi) {
+                if (multi) {
+                    this.$.dropdownMenu.$.menuButton.set('closeOnActivate', false);
+                    this.$.dropdownMenu.$.menuButton.set('ignoreSelect', true);
+                } else {
+                    this.$.dropdownMenu.$.menuButton.set('closeOnActivate', true);
+                    this.$.dropdownMenu.$.menuButton.set('ignoreSelect', false);
+                }
+            },
+
+            /**
+             * Updates value and selected on _selectedItems change.
+             * <b>Note:</b> This function only executes in case of multi select enabled.
+             *
+             * @param selectedItems
+             * @private
+             */
+            _selectedItemsChanged: function (selectedItems) {
+                this.set('value', selectedItems.map((function(item) {
+                    return this._getItemValue(item);
+                }).bind(this)));
+
+                var items = this.$.list.items;
+                this.set('selected', selectedItems.map(function(item) {
+                    return items.indexOf(item);
+                }))
+            },
+
+            /**
+             * Updates selected item's label to customize value shown in
+             * paper-drodown-menu's paper-input.
+             */
+            _updateSelectedItemLabel: function(label) {
+                if (this.multi && this._selectedItems.length > 1) {
+                    this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' items selected');
+                } else if (this._selectedItems.length == 1) {
+                    this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                } else {
+                    this.$.dropdownMenu._setSelectedItemLabel(null);
+                }
+            },
+
+            /**
+             * Returns value of given Item.
+             *
+             * @param item
+             * @returns {string} Label/Value of the item.
+             */
+            _getItemValue: function (item) {
+                if (item.getAttribute('value'))
+                    return item.getAttribute('value');
+                else
+                    return item.textContent.trim();
+            },
+
+            /**
              * Updates selected on items change.
+             *
+             * @param items
+             * @private
              */
             _itemsChanged: function (items) {
                 if (items.length > 0)
@@ -277,14 +380,10 @@
              *
              * @param index Index of the item
              * @param items Items in the listbox
-             * @returns {string} Value of the item.
              * @private
              */
-            _getItemValue: function (index, items) {
-                if (items[index].getAttribute('value'))
-                    return items[index].getAttribute('value');
-                else
-                    return items[index].textContent.trim();
+            _getItemValueFromItems: function (index, items) {
+                return this._getItemValue(items[index]);
             },
 
             /**
@@ -293,7 +392,7 @@
              *
              * @param index Index of the item.
              * @param items Items in listbox.
-             * @returns {string} Label of the item.
+             * @returns {string} Label/Value of the item.
              * @private
              */
             _getItemLabel: function (index, items) {
@@ -309,13 +408,17 @@
              */
             _updateSelected: function (value) {
                 var items = this.$.list.items;
-                for (var i = 0; i < items.length; ++i) {
-                    if (this._getItemValue(i, items) == value) {
-                        this.set('selected', i);
-                        return;
+                if (items.length > 0 && !this.multi) {
+                    for (var i = 0; i < items.length; ++i) {
+                        if (this._getItemValueFromItems(i, items) == value) {
+                            this.set('selected', i);
+                            this.set('_selected', i);
+                            return;
+                        }
                     }
+                    this.set('_selected', -1);
+                    this.set('selected', -1);
                 }
-                this.set('selected', -1);
             },
 
             /**
@@ -325,12 +428,14 @@
              * @private
              */
             _updateValue: function (selected) {
-                if (selected > -1) {
-                    var items = this.$.list.items;
-                    this.set('value', this._getItemValue(selected, items));
-                    return;
-                } else {
-                    this.set('value', null);
+                var items = this.$.list.items;
+                if (items.length > 0 && !this.multi) {
+                    if (selected > -1) {
+                        this.set('value', this._getItemValueFromItems(selected, items));
+                        return;
+                    } else {
+                        this.set('value', null);
+                    }
                 }
             },
 
