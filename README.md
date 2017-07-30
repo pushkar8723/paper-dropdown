@@ -2,8 +2,8 @@
 
 ## &lt;paper-dropdown&gt;
 
-`paper-dropdown` is a wrapper for `paper-dropdown-menu` to facilitate 2-way binding
-on value in fewer lines of HTML code and also enable filter on items.
+`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
+items, key value pair and 2-way binding on value.
 
 Values can be bound using `value` attribute.
 
@@ -96,4 +96,34 @@ out the items in the dropdown.
     <paper-item value="mango">Mango</paper-item>
     <paper-item value="orange">Orange</paper-item>
 </paper-dropdown>
+```
+
+For multi-select, set `mutli` parameter to true.  In this case however, paper-item's `value` attribute must be set.
+
+**Example**
+<!--
+```
+<custom-element-demo>
+    <template>
+        <link rel="import" href="paper-dropdown.html">
+        <link rel="import" href="../paper-item/paper-item.html">
+        <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+        <style is="custom-style" include="demo-pages-shared-styles">
+            paper-dropdown {
+                height: 300px;
+            }
+        </style>
+        <next-code-block></next-code-block>
+    </template>
+</custom-element-demo>
+```
+-->
+```html
+    <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
+        <paper-item value="apple">Apple</paper-item>
+        <paper-item value="banana">Banana</paper-item>
+        <paper-item value="carrot">Carrot</paper-item>
+        <paper-item value="mango">Mango</paper-item>
+        <paper-item value="orange">Orange</paper-item>
+    </paper-dropdown>
 ```
