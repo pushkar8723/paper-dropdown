@@ -108,6 +108,7 @@
                     id="list"
                     items="{{_items}}"
                     class="dropdown-content"
+                    attr-for-selected="{{_attrForSelected}}"
                     selected="{{_selected}}"
                     selected-items="{{_selectedItems}}"
                     multi="{{multi}}">
@@ -293,12 +294,18 @@
             observers: [
                 '_filter(_searchText)',
                 '_itemsChanged(_items)',
+                '_updateValue(_selected)',
                 '_selectedItemsChanged(_selectedItems)',
                 '_updateSelectedItemLabel(_selectedItemLabel)',
                 '_updateSelectedItemLabel(_selectedItems)'
             ],
+
+            UP_KEY_CODE: 38,
+            DOWN_KEY_CODE: 40,
+
             ready: function () {
                 this.set('_searchText', '');
+                this.set('_attrForSelected', null);
             },
 
             /**
@@ -327,14 +334,16 @@
              * @private
              */
             _selectedItemsChanged: function (selectedItems) {
-                this.set('value', selectedItems.map((function(item) {
-                    return this._getItemValue(item);
-                }).bind(this)));
+                if (this.multi) {
+                    this.set('value', selectedItems.map((function(item) {
+                        return this._getItemValue(item);
+                    }).bind(this)));
 
-                var items = this.$.list.items;
-                this.set('selected', selectedItems.map(function(item) {
-                    return items.indexOf(item);
-                }))
+                    var items = this.$.list.items;
+                    this.set('selected', selectedItems.map(function(item) {
+                        return items.indexOf(item);
+                    }));
+                }
             },
 
             /**
@@ -342,12 +351,14 @@
              * paper-drodown-menu's paper-input.
              */
             _updateSelectedItemLabel: function(label) {
-                if (this.multi && this._selectedItems.length > 1) {
-                    this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' items selected');
-                } else if (this._selectedItems.length == 1) {
-                    this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
-                } else {
-                    this.$.dropdownMenu._setSelectedItemLabel(null);
+                if (this.multi) {
+                    if (this._selectedItems.length > 1) {
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' items selected');
+                    } else if (this._selectedItems.length == 1) {
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                    } else {
+                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                    }
                 }
             },
 
@@ -358,21 +369,33 @@
              * @returns {string} Label/Value of the item.
              */
             _getItemValue: function (item) {
-                if (item.getAttribute('value'))
-                    return item.getAttribute('value');
-                else
-                    return item.textContent.trim();
+                if (item) {
+                    if (item.getAttribute('value'))
+                        return item.getAttribute('value');
+                    else
+                        return item.textContent.trim();
+                }
             },
 
             /**
-             * Updates selected on items change.
+             * Updates selected & _attrForSelected on items change.
              *
              * @param items
              * @private
              */
             _itemsChanged: function (items) {
-                if (items.length > 0)
+                if (items.length > 0) {
                     this._updateSelected(this.value);
+                    if (this.multi) {
+                        for (var i in items) {
+                            if (items[i].getAttribute('value')) {
+                                this.set('_attrForSelected', 'value');
+                                return;
+                            }
+                        }
+                        this.set('_attrForSelected', null);
+                    }
+                }
             },
 
             /**
@@ -400,7 +423,7 @@
             },
 
             /**
-             * Updates `value` property according to `selected` property.
+             * Updates `selected` property according to `value` property.
              * Sets selected to -1 if value is not found.
              *
              * @param value
@@ -408,16 +431,20 @@
              */
             _updateSelected: function (value) {
                 var items = this.$.list.items;
-                if (items.length > 0 && !this.multi) {
-                    for (var i = 0; i < items.length; ++i) {
-                        if (this._getItemValueFromItems(i, items) == value) {
-                            this.set('selected', i);
-                            this.set('_selected', i);
-                            return;
+                if (items.length > 0) {
+                    if (this.multi) {
+                        this.$.list.set('selectedValues', value);
+                    } else {
+                        for (var i = 0; i < items.length; i++) {
+                            if (this._getItemValueFromItems(i, items) == value) {
+                                this.set('selected', i);
+                                this.set('_selected', i);
+                                return;
+                            }
                         }
+                        this.set('_selected', -1);
+                        this.set('selected', -1);
                     }
-                    this.set('_selected', -1);
-                    this.set('selected', -1);
                 }
             },
 
@@ -457,13 +484,15 @@
             },
 
             /**
-             * Stops event propagation.
+             * Stops event propagation if up/down keys is not pressed.
              *
              * @param e Event
              * @private
              */
             _stopEventPropagation: function (e) {
-                e.stopPropagation();
+                if (e.keyCode != this.UP_KEY_CODE && e.keyCode != this.DOWN_KEY_CODE) {
+                    e.stopPropagation();
+                }
             },
 
             /**
