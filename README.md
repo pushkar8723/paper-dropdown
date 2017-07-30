@@ -35,7 +35,7 @@ Values can be bound using `value` attribute.
 </paper-dropdown>
 ```
 
-Each item can have a key-label pair where key is what stored in the model but
+Each item can have a key-value pair where key is what stored in the model but
 label is what user sees. This can be done using `value` attribute for `paper-item`
 
 **Example**
