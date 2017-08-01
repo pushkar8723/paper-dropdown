@@ -35,7 +35,7 @@
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "iron-form": "PolymerElements/iron-form#^1.0.0"
+    "iron-form": "PolymerElements/iron-form#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   }
 }
