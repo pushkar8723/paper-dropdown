@@ -12,6 +12,8 @@
     <link rel="import" href="../../paper-item/paper-item.html" />
     <link rel="import" href="../../iron-input/iron-input.html" />
     <link rel="import" href="../../paper-input/paper-input.html" />
+    <link rel="import" href="../../iron-form/iron-form.html" />
+    <link rel="import" href="../../paper-checkbox/paper-checkbox.html" />
     <style is="custom-style" include="demo-pages-shared-styles">
         demo-snippet.horizontal {
             --demo-snippet-demo: {
@@ -128,6 +130,31 @@
                 <p>
                     <b>Selected Fruit Key(s):</b> {{value}}
                 </p>
+            </template>
+        </demo-snippet>
+
+        <h3>Form Validation</h3>
+        <demo-snippet>
+            <template is="dom-bind">
+                <iron-form id="form1">
+                    <form>
+                        <paper-dropdown required label="Fruit" name="fruit" error-message="Please select a fruit">
+                            <paper-item value="apple">Apple</paper-item>
+                            <paper-item value="banana">Banana</paper-item>
+                            <paper-item value="carrot">Carrot</paper-item>
+                            <paper-item value="mango">Mango</paper-item>
+                            <paper-item value="orange">Orange</paper-item>
+                        </paper-dropdown><br/>
+                        <paper-dropdown multi required label="Fruit" name="fruits" error-message="Please select at least one fruit">
+                            <paper-item value="apple">Apple</paper-item>
+                            <paper-item value="banana">Banana</paper-item>
+                            <paper-item value="carrot">Carrot</paper-item>
+                            <paper-item value="mango">Mango</paper-item>
+                            <paper-item value="orange">Orange</paper-item>
+                        </paper-dropdown><br/><br/>
+                        <button type="submit">Submit</button>
+                    </form>
+                </iron-form>
             </template>
         </demo-snippet>
     </div>

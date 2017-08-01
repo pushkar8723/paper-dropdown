@@ -1,0 +1,59 @@
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
+
+<script>
+    /**
+     * Use `Polymer.PaperDropdownBehavior` to implement a custom validation
+     * and filter methods.
+     * @polymerBehavior Polymer.PaperDropdownBehavior
+     */
+    Polymer.PaperDropdownBehaviorImpl = {
+        /**
+         * Checks if item satisfies the filter condition.
+         * If it satisfies and has to be shown to the user,
+         * true is returned, else false is returned.
+         *
+         * Override this method to implement your own custom filter
+         * condition.
+         *
+         * @param searchText Text user entered in search field
+         * @param item Current Item
+         * @return {boolean}
+         * @protected
+         */
+        _filterCheck: function (searchText, item) {
+            var currentValue = this._getItemLabel(item);
+            if (searchText == "" || currentValue == "") {
+                return true;
+            } else {
+                var re = new RegExp(searchText, "gi");
+                if (re.exec(currentValue) != null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        },
+
+        /**
+         * Returns false if the element is required and don't have any value, and true otherwise.
+         * @param value.
+         * @return {boolean} true if `required` is false or if `checked` is true.
+         */
+        _getValidity: function (value) {
+            if (this.multi)
+                return this.disabled || !this.required || (this.value != null && this.value.length > 0);
+            else
+                return this.disabled || !this.required || (this.value != null && this.value != "");
+        }
+    };
+
+    /** @polymerBehavior Polymer.PaperDropdownBehavior */
+    Polymer.PaperDropdownBehavior = [
+        Polymer.IronFormElementBehavior,
+        Polymer.IronValidatableBehavior,
+        Polymer.PaperDropdownBehaviorImpl
+    ];
+</script>

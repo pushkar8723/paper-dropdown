@@ -15,58 +15,10 @@
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="paper-dropdown-element-behavior.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../iron-input/iron-input.html">
-
-<!--
-    `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
-    items, key value pair and 2-way binding on value.
-
-    Values can be bound using `value` attribute.
-
-        <paper-dropdown label="Fruit" value="{{value}}">
-            <paper-item>Apple</paper-item>
-            <paper-item>Banana</paper-item>
-            <paper-item>Carrot</paper-item>
-            <paper-item>Mango</paper-item>
-            <paper-item>Orange</paper-item>
-        </paper-dropdown>
-
-    Each item can have a key-label pair where key is what stored in the model but
-    label is what user sees. This can be done using `value` attribute for `paper-item`
-
-        <paper-dropdown label="Fruit" value="{{value}}">
-            <paper-item value="apple">Apple</paper-item>
-            <paper-item value="banana">Banana</paper-item>
-            <paper-item value="carrot">Carrot</paper-item>
-            <paper-item value="mango">Mango</paper-item>
-            <paper-item value="orange">Orange</paper-item>
-        </paper-dropdown>
-
-    It also has an optional parameter named `searchable`, which when set to true
-    will add a text field at the start of the dropdown which users can use to filter
-    out the items in the dropdown.
-
-        <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
-            <paper-item value="apple">Apple</paper-item>
-            <paper-item value="banana">Banana</paper-item>
-            <paper-item value="carrot">Carrot</paper-item>
-            <paper-item value="mango">Mango</paper-item>
-            <paper-item value="orange">Orange</paper-item>
-        </paper-dropdown>
-
-    For multi-select, set `mutli` parameter to true. In this case however, paper-item's
-    `value` attribute must be set.
-
-        <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
-            <paper-item value="apple">Apple</paper-item>
-            <paper-item value="banana">Banana</paper-item>
-            <paper-item value="carrot">Carrot</paper-item>
-            <paper-item value="mango">Mango</paper-item>
-            <paper-item value="orange">Orange</paper-item>
-        </paper-dropdown>
--->
 
 <dom-module is="paper-dropdown">
     <style>
@@ -114,7 +66,8 @@
                 restore-focus-on-close="{{restoreFocusOnClose}}"
                 disabled="{{disabled}}"
                 selected-item="{{_selectedItem}}"
-                selected-item-label="{{_selectedItemLabel}}">
+                selected-item-label="{{_selectedItemLabel}}"
+                invalid="[[invalid]]">
             <paper-listbox
                     id="list"
                     items="{{_items}}"
@@ -140,6 +93,53 @@
     </template>
     <script>
         /**
+         *   `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
+         *    items, key value pair and 2-way binding on value.
+         *
+         *   Values can be bound using `value` attribute.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}">
+         *          <paper-item>Apple</paper-item>
+         *          <paper-item>Banana</paper-item>
+         *          <paper-item>Carrot</paper-item>
+         *          <paper-item>Mango</paper-item>
+         *          <paper-item>Orange</paper-item>
+         *      </paper-dropdown>
+         *
+         *   Each item can have a key-label pair where key is what stored in the model but
+         *   label is what user sees. This can be done using `value` attribute for `paper-item`
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="carrot">Carrot</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *      </paper-dropdown>
+         *
+         *   It also has an optional parameter named `searchable`, which when set to true
+         *   will add a text field at the start of the dropdown which users can use to filter
+         *   out the items in the dropdown.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="carrot">Carrot</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *      </paper-dropdown>
+         *
+         *   For multi-select, set `mutli` parameter to true. In this case however, paper-item's
+         *   `value` attribute must be set.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="carrot">Carrot</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *      </paper-dropdown>
+         *
          * @element paper-dropdown
          * @demo demo/index.html
          */
@@ -147,15 +147,11 @@
             is: 'paper-dropdown',
 
             /**
-             * Fired when dropdown opens.
-             *
-             * @event open
+             * @event open is fired when `paper-dropdown` opens.
              */
 
             /**
-             * Fired when dropdown closes.
-             *
-             * @event close
+             * @event close is fired when `paper-dropdown` closes.
              */
 
             properties: {
@@ -311,12 +307,54 @@
                 '_updateSelectedItemLabel(_selectedItems)'
             ],
 
+            behaviors: [
+                Polymer.PaperDropdownBehavior
+            ],
+
+            /**
+             * Key code for UP Arrow.
+             *
+             * @constant
+             * @private
+             */
             UP_KEY_CODE: 38,
+
+            /**
+             * Key code for DOWN Arrow.
+             *
+             * @constant
+             * @private
+             */
             DOWN_KEY_CODE: 40,
 
+            /**
+             * This method is automatically called when paper-dropdown is
+             * stamped to DOM. ITs main purpose is to initialize the
+             * component's variables.
+             *
+             * @private
+             */
             ready: function () {
                 this.set('_searchText', '');
                 this.set('_attrForSelected', null);
+            },
+
+            /**
+             * Opens the dropdown.
+             *
+             * @public
+             */
+            open: function () {
+                this.$.dropdownMenu.open();
+            },
+
+            /**
+             * Closes the dropdown.
+             *
+             * @public
+             */
+            close: function () {
+                this.$.dropdownMenu.close();
             },
 
             /**
@@ -360,6 +398,9 @@
             /**
              * Updates selected item's label to customize value shown in
              * paper-drodown-menu's paper-input.
+             *
+             * @param label
+             * @private
              */
             _updateSelectedItemLabel: function(label) {
                 if (this.multi) {
@@ -378,6 +419,7 @@
              *
              * @param item
              * @returns {string} Label/Value of the item.
+             * @private
              */
             _getItemValue: function (item) {
                 if (item) {
@@ -421,16 +463,27 @@
             },
 
             /**
+             * Returns the Label for the given Item.
+             *
+             * @param item
+             * @return {string} Label of the item.
+             * @private
+             */
+            _getItemLabel: function (item) {
+                return item.textContent.trim();
+            },
+
+            /**
              * Returns the Label shown to user for the item at the
              * given index.
              *
              * @param index Index of the item.
              * @param items Items in listbox.
-             * @returns {string} Label/Value of the item.
+             * @returns {string} Label of the item.
              * @private
              */
-            _getItemLabel: function (index, items) {
-                return items[index].textContent.trim();
+            _getItemLabelFromItems: function (index, items) {
+                return this._getItemLabel(items[index]);
             },
 
             /**
@@ -515,21 +568,15 @@
             _filter: function (searchText) {
                 var items = this.$.list.items;
                 for (var i in items) {
-                    var currentValue = this._getItemLabel(i, items);
                     var display;
-                    if (searchText == "" || currentValue == "") {
+                    if (this._filterCheck(searchText, items[i])) {
                         display = 'flex';
                     } else {
-                        var re = new RegExp(this._searchText, "gi");
-                        if (re.exec(currentValue) != null) {
-                            display = 'flex';
-                        } else {
-                            display = 'none';
-                        }
+                        display = 'none';
                     }
                     items[i].style.display = display;
                 }
-            }
+            },
         })
     </script>
 </dom-module>

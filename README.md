@@ -119,11 +119,11 @@ For multi-select, set `mutli` parameter to true.  In this case however, paper-it
 ```
 -->
 ```html
-    <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
-        <paper-item value="apple">Apple</paper-item>
-        <paper-item value="banana">Banana</paper-item>
-        <paper-item value="carrot">Carrot</paper-item>
-        <paper-item value="mango">Mango</paper-item>
-        <paper-item value="orange">Orange</paper-item>
-    </paper-dropdown>
+<paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
+    <paper-item value="apple">Apple</paper-item>
+    <paper-item value="banana">Banana</paper-item>
+    <paper-item value="carrot">Carrot</paper-item>
+    <paper-item value="mango">Mango</paper-item>
+    <paper-item value="orange">Orange</paper-item>
+</paper-dropdown>
 ```
