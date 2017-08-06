@@ -33,6 +33,25 @@
      * @polymerBehavior Polymer.PaperDropdownBehavior
      */
     Polymer.PaperDropdownBehaviorImpl = {
+        properties: {
+            /**
+             * Maximum number of items to be selected if item is required and
+             * multiple items can be selected, ignored otherwise.
+             */
+            maxLength: {
+                type: Number
+            },
+
+            /**
+             * Minimum number of items to be selected if item is required and
+             * multiple items can be selected, ignored otherwise.
+             */
+            minLength: {
+                type: Number,
+                value: 1
+            }
+        },
+
         /**
          * Checks if item satisfies the filter condition.
          * If it satisfies and has to be shown to the user,
@@ -67,7 +86,8 @@
          */
         _getValidity: function (value) {
             if (this.multi)
-                return this.disabled || !this.required || (this.value != null && this.value.length > 0);
+                return this.disabled || !this.required || (this.value != null && this.value.length >= this.minLength &&
+                    (this.maxLength == null || this.value.length <= this.maxLength));
             else
                 return this.disabled || !this.required || (this.value != null && this.value != "");
         }
