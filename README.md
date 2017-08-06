@@ -29,9 +29,9 @@ Values can be bound using `value` attribute.
 <paper-dropdown label="Fruit" value="{{value}}">
     <paper-item>Apple</paper-item>
     <paper-item>Banana</paper-item>
-    <paper-item>Carrot</paper-item>
     <paper-item>Mango</paper-item>
     <paper-item>Orange</paper-item>
+    <paper-item>Tomato</paper-item>
 </paper-dropdown>
 ```
 
@@ -60,9 +60,9 @@ label is what user sees. This can be done using `value` attribute for `paper-ite
 <paper-dropdown label="Fruit" value="{{value}}">
     <paper-item value="apple">Apple</paper-item>
     <paper-item value="banana">Banana</paper-item>
-    <paper-item value="carrot">Carrot</paper-item>
     <paper-item value="mango">Mango</paper-item>
     <paper-item value="orange">Orange</paper-item>
+    <paper-item value="tomato">Tomato</paper-item>
 </paper-dropdown>
 ```
 
@@ -92,9 +92,9 @@ out the items in the dropdown.
 <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
     <paper-item value="apple">Apple</paper-item>
     <paper-item value="banana">Banana</paper-item>
-    <paper-item value="carrot">Carrot</paper-item>
     <paper-item value="mango">Mango</paper-item>
     <paper-item value="orange">Orange</paper-item>
+    <paper-item value="tomato">Tomato</paper-item>
 </paper-dropdown>
 ```
 
@@ -122,8 +122,8 @@ For multi-select, set `mutli` parameter to true.  In this case however, paper-it
 <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
     <paper-item value="apple">Apple</paper-item>
     <paper-item value="banana">Banana</paper-item>
-    <paper-item value="carrot">Carrot</paper-item>
     <paper-item value="mango">Mango</paper-item>
     <paper-item value="orange">Orange</paper-item>
+    <paper-item value="tomato">Tomato</paper-item>
 </paper-dropdown>
 ```
