@@ -27,38 +27,39 @@
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../neon-animation/web-animations.html">
 
-<dom-module is="paper-dropdown">
-    <style>
-        #searchBox {
-            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
-            padding: 0 2px 0 16px;
-            border: none;
-            width: 100%;
-            height: 48px;
-            line-height: 48px;
-        }
-
-        #searchBox:focus {
-            outline: none;
-        }
-
-        paper-listbox {
-            overflow-x: hidden;
-        }
-
-        :host[multi] ::content paper-item{
-            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
-            background-position: 7px 12px;
-            padding-left: 40px;
-        }
-
-        :host[multi] ::content paper-item.iron-selected {
-            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
-            background-position: 7px 12px;
-        }
-    </style>
+<dom-module id="paper-dropdown">
     <template>
+        <style>
+            #search-box {
+                box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+                padding: 0 2px 0 16px;
+                border: none;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+            }
+    
+            :host * {
+                outline: none;
+            }
+    
+            paper-listbox {
+                overflow-x: hidden;
+            }
+    
+            :host([multi]) ::slotted(paper-item) {
+                background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
+                background-position: 7px 12px;
+                padding-left: 40px;
+            }
+    
+            :host([multi]) ::slotted(paper-item.iron-selected) {
+                background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
+                background-position: 7px 12px;
+            }
+        </style>
         <paper-dropdown-menu
                 id="dropdownMenu"
                 label="{{label}}"
@@ -79,23 +80,24 @@
             <paper-listbox
                     id="list"
                     items="{{_items}}"
-                    class="dropdown-content"
+                    slot="dropdown-content"
                     attr-for-selected="{{_attrForSelected}}"
                     selected="{{_selected}}"
                     selected-items="{{_selectedItems}}"
                     multi="{{multi}}">
                 <template is="dom-if" if="{{searchable}}">
-                    <input
-                            is="iron-input"
+                    <iron-input 
+                        bind-value="{{_searchText}}">
+                        <input
+                            id="search-box"
                             placeholder="Search..."
-                            id="searchBox"
-                            bind-value="{{_searchText}}"
                             type="text"
                             on-tap="_stopEventPropagation"
                             on-keydown="_stopEventPropagation"
                             on-keyup="_stopEventPropagation"/>
+                    </iron-input>
                 </template>
-                <content></content>
+                <slot></slot>
             </paper-listbox>
         </paper-dropdown-menu>
     </template>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>paper-dropdown demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
     <link rel="import" href="../../polymer/polymer.html" />
     <link rel="import" href="../paper-dropdown.html" />
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
@@ -14,24 +15,45 @@
     <link rel="import" href="../../paper-input/paper-input.html" />
     <link rel="import" href="../../iron-form/iron-form.html" />
     <style is="custom-style" include="demo-pages-shared-styles">
-        demo-snippet.horizontal {
+        demo-snippet {
             --demo-snippet-demo: {
                 @apply(--layout-horizontal);
                 @apply(--layout-justified);
                 @apply(--layout-wrap);
             }
         }
-        demo-snippet.horizontal paper-input {
-            display: inline-block;
+
+        .container {
+            margin: 0 auto;
+            width: 600px;
+            max-width: 90%;
         }
     </style>
 </head>
 <body unresolved>
-    <div class="vertical-section-container centered">
+    <div class="container">
         <h3>2-way Binding on Value</h3>
         <demo-snippet>
+            <dom-bind>
+                <template>
+                    <paper-dropdown label="Fruit" value="{{value}}">
+                        <paper-item>Apple</paper-item>
+                        <paper-item>Banana</paper-item>
+                        <paper-item>Mango</paper-item>
+                        <paper-item>Orange</paper-item>
+                        <paper-item>Tomato</paper-item>
+                    </paper-dropdown>
+    
+                    <select value="{{value::change}}">
+                        <option>Apple</option>
+                        <option>Banana</option>
+                        <option>Mango</option>
+                        <option>Orange</option>
+                        <option>Tomato</option>
+                    </select>
+                </template>
+            </dom-bind>
             <template is="dom-bind">
-                <!-- See Demo source code to checkout how binding is done. -->
                 <paper-dropdown label="Fruit" value="{{value}}">
                     <paper-item>Apple</paper-item>
                     <paper-item>Banana</paper-item>
@@ -47,17 +69,35 @@
                     <option>Orange</option>
                     <option>Tomato</option>
                 </select>
-
-                <p>
-                    <b>Selected Fruit:</b> {{value}}
-                </p>
             </template>
         </demo-snippet>
 
         <h3>Key Value pair</h3>
         <demo-snippet>
+            <dom-bind>
+                <template>
+                    <paper-dropdown label="Fruit" value="{{value}}">
+                        <paper-item value="apple">Apple</paper-item>
+                        <paper-item value="banana">Banana</paper-item>
+                        <paper-item value="mango">Mango</paper-item>
+                        <paper-item value="orange">Orange</paper-item>
+                        <paper-item value="tomato">Tomato</paper-item>
+                    </paper-dropdown>
+    
+                    <select value="{{value::change}}">
+                        <option value="apple">Apple</option>
+                        <option value="banana">Banana</option>
+                        <option value="mango">Mango</option>
+                        <option value="orange">Orange</option>
+                        <option value="tomato">Tomato</option>
+                    </select>
+    
+                    <p>
+                        <b>Selected Fruit Key:</b> {{value}}
+                    </p>
+                </template>
+            </dom-bind>
             <template is="dom-bind">
-                <!-- See Demo source code to checkout how binding is done. -->
                 <paper-dropdown label="Fruit" value="{{value}}">
                     <paper-item value="apple">Apple</paper-item>
                     <paper-item value="banana">Banana</paper-item>
@@ -82,8 +122,30 @@
 
         <h3>Filter / Search for an item</h3>
         <demo-snippet>
+            <dom-bind>
+                <template>
+                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
+                        <paper-item value="apple">Apple</paper-item>
+                        <paper-item value="banana">Banana</paper-item>
+                        <paper-item value="mango">Mango</paper-item>
+                        <paper-item value="orange">Orange</paper-item>
+                        <paper-item value="tomato">Tomato</paper-item>
+                    </paper-dropdown>
+    
+                    <select value="{{value::change}}">
+                        <option value="apple">Apple</option>
+                        <option value="banana">Banana</option>
+                        <option value="mango">Mango</option>
+                        <option value="orange">Orange</option>
+                        <option value="tomato">Tomato</option>
+                    </select>
+    
+                    <p>
+                        <b>Selected Fruit Key:</b> {{value}}
+                    </p>
+                </template>
+            </dom-bind>
             <template is="dom-bind">
-                <!-- See Demo source code to checkout how binding is done. -->
                 <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
                     <paper-item value="apple">Apple</paper-item>
                     <paper-item value="banana">Banana</paper-item>
@@ -108,8 +170,30 @@
 
         <h3>Multiple Select (showcasing 2-way binding using 2 paper-dropdowns)</h3>
         <demo-snippet>
+            <dom-bind>
+                <template>
+                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                        <paper-item value="apple">Apple</paper-item>
+                        <paper-item value="banana">Banana</paper-item>
+                        <paper-item value="mango">Mango</paper-item>
+                        <paper-item value="orange">Orange</paper-item>
+                        <paper-item value="tomato">Tomato</paper-item>
+                    </paper-dropdown>
+    
+                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                        <paper-item value="apple">Apple</paper-item>
+                        <paper-item value="banana">Banana</paper-item>
+                        <paper-item value="mango">Mango</paper-item>
+                        <paper-item value="orange">Orange</paper-item>
+                        <paper-item value="tomato">Tomato</paper-item>
+                    </paper-dropdown>
+    
+                    <p>
+                        <b>Selected Fruit Key(s):</b> {{value}}
+                    </p>
+                </template>
+            </dom-bind>
             <template is="dom-bind">
-                <!-- See Demo source code to checkout how binding is done. -->
                 <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
                     <paper-item value="apple">Apple</paper-item>
                     <paper-item value="banana">Banana</paper-item>
@@ -134,7 +218,7 @@
 
         <h3>Form Validation</h3>
         <demo-snippet>
-            <template is="dom-bind">
+            <template>
                 <iron-form id="form1">
                     <form>
                         <paper-dropdown required label="Fruit" name="fruit" error-message="Please select a fruit">
