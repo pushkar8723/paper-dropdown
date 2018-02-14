@@ -306,6 +306,15 @@
                     type: Boolean,
                     value: false,
                     observer: '_multiChanged'
+                },
+                /**
+                 * Can be used to use a different language when displaying
+                 * that more than one item is selected. 
+                 * Default: 'items selected' 
+                 */
+                multiLabel: {
+                    type: String,
+                    value: 'items selected'
                 }
             },
             observers: [
@@ -415,7 +424,7 @@
             _updateSelectedItemLabel: function(label) {
                 if (this.multi) {
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' items selected');
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
                     } else if (this._selectedItems.length == 1) {
                         this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
                     } else {
