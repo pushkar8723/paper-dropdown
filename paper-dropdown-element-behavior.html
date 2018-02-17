@@ -47,8 +47,7 @@
              * multiple items can be selected, ignored otherwise.
              */
             minLength: {
-                type: Number,
-                value: 1
+                type: Number
             }
         },
 
@@ -82,14 +81,38 @@
         /**
          * Returns false if the element is required and don't have any value, and true otherwise.
          * @param value.
-         * @return {boolean} true if `required` is false or if `checked` is true.
+         * @return {boolean} true if required is true and has atleast one value OR values selected
+         *                      is greater than minLenght but less than max length.
          */
         _getValidity: function (value) {
-            if (this.multi)
-                return this.disabled || !this.required || (this.value != null && this.value.length >= this.minLength &&
-                    (this.maxLength == null || this.value.length <= this.maxLength));
-            else
+            if (this.multi) {
+                if (this.disabled) {
+                    // Return true if disabled.
+                    return true;
+                } else if (this.minLength || this.maxLength) {
+                    // Return false if items selected is less than minLength.
+                    if (this.minLength && this.value && this.value.length < this.minLength)
+                        return false;
+
+                    // Return false if items selected is greater than maxLength.
+                    if (this.maxLength && this.value && this.value.length > this.maxLength)
+                        return false;
+
+                    // Return true as number of items selected in the 
+                    // required range.
+                    return true;
+                } else if (!this.required) {
+                    // Return true if input is not required
+                    // and there is no min or max number of 
+                    // elements that needs to be selected.
+                    return true;
+                } else {
+                    // Item is required so value must be set.
+                    return (this.value != null && this.value != "");
+                }
+            } else {
                 return this.disabled || !this.required || (this.value != null && this.value != "");
+            }
         }
     };
 
