@@ -170,3 +170,7 @@ A very common usecase for dropdown is where items are dynamic. Following example
     </script>
 </dom-bind>
 ```
+
+### Styling
+
+Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and custom properties to style the internal input and menu button respectively.
