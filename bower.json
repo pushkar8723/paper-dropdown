@@ -31,7 +31,8 @@
     "iron-input": "PolymerElements/iron-input#^2.0.0",
     "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^2.0.0",
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^2.0.0",
-    "neon-animation": "PolymerElements/neon-animation#^2.0.2"
+    "neon-animation": "PolymerElements/neon-animation#^2.0.2",
+    "web-animations-js": "^2.3.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
@@ -57,5 +58,8 @@
         "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
       }
     }
+  },
+  "resolutions": {
+    "iron-doc-viewer": "^3.0.0"
   }
 }
