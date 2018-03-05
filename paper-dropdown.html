@@ -465,7 +465,7 @@
                 if (items.length > 0) {
                     this._updateSelected(this.value);
                     if (this.multi) {
-                        for (var i in items) {
+                        for (var i = 0; i < items.length; i++) {
                             if (items[i].getAttribute('value')) {
                                 this.set('_attrForSelected', 'value');
                                 return;
@@ -592,7 +592,7 @@
              */
             _filter: function (searchText) {
                 var items = this.$.list.items;
-                for (var i in items) {
+                for (var i = 0; i < items.length; i++) {
                     var display;
                     if (this._filterCheck(searchText, items[i])) {
                         display = 'flex';
