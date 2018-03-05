@@ -40,24 +40,31 @@
                 height: 48px;
                 line-height: 48px;
             }
-    
+
             :host * {
                 outline: none;
             }
-    
+
             paper-listbox {
                 overflow-x: hidden;
             }
-    
+
             :host([multi]) ::slotted(paper-item) {
                 background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
                 background-position: 7px 12px;
                 padding-left: 40px;
             }
-    
+
             :host([multi]) ::slotted(paper-item.iron-selected) {
                 background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
                 background-position: 7px 12px;
+            }
+
+            paper-dropdown-menu {
+                min-width: 330px;
+            }
+            paper-dropdown-menu,paper-listbox {
+                min-width: 330px;
             }
         </style>
         <paper-dropdown-menu
@@ -86,15 +93,15 @@
                     selected-items="{{_selectedItems}}"
                     multi="{{multi}}">
                 <template is="dom-if" if="{{searchable}}">
-                    <iron-input 
-                        bind-value="{{_searchText}}">
+                    <iron-input
+                            bind-value="{{_searchText}}">
                         <input
-                            id="search-box"
-                            placeholder="Search..."
-                            type="text"
-                            on-tap="_stopEventPropagation"
-                            on-keydown="_stopEventPropagation"
-                            on-keyup="_stopEventPropagation"/>
+                                id="search-box"
+                                placeholder="{{searchPlaceholder}}"
+                                type="text"
+                                on-tap="_stopEventPropagation"
+                                on-keydown="_stopEventPropagation"
+                                on-keyup="_stopEventPropagation"/>
                     </iron-input>
                 </template>
                 <slot></slot>
@@ -149,12 +156,6 @@
          *          <paper-item value="orange">Orange</paper-item>
          *          <paper-item value="tomato">Tomato</paper-item>
          *      </paper-dropdown>
-         *   
-         *   **Styling**
-         *
-         *   Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the 
-         *   `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and 
-         *   custom properties to style the internal input and menu button respectively.
          *
          * @element paper-dropdown
          * @demo demo/index.html
@@ -171,6 +172,20 @@
              */
 
             properties: {
+                /**
+                 * search placeholder text if searchable is True
+                 */
+                searchPlaceholder : {
+                    type : String,
+                    value : "Search..."
+                },
+                /**
+                 * search placeholder text if searchable is True
+                 */
+                selectedPlaceholder : {
+                    type : String,
+                    value : "items selected"
+                },
                 /**
                  * Label shown against the dropdown.
                  */
@@ -312,15 +327,6 @@
                     type: Boolean,
                     value: false,
                     observer: '_multiChanged'
-                },
-                /**
-                 * Can be used to use a different language when displaying
-                 * that more than one item is selected. 
-                 * Default: 'items selected' 
-                 */
-                multiLabel: {
-                    type: String,
-                    value: 'items selected'
                 }
             },
             observers: [
@@ -409,12 +415,12 @@
              */
             _selectedItemsChanged: function (selectedItems) {
                 if (this.multi) {
-                    this.set('value', selectedItems.map((function(item) {
+                    this.set('value', selectedItems.map((function (item) {
                         return this._getItemValue(item);
                     }).bind(this)));
 
                     var items = this.$.list.items;
-                    this.set('selected', selectedItems.map(function(item) {
+                    this.set('selected', selectedItems.map(function (item) {
                         return items.indexOf(item);
                     }));
                 }
@@ -427,10 +433,10 @@
              * @param label
              * @private
              */
-            _updateSelectedItemLabel: function(label) {
+            _updateSelectedItemLabel: function (label) {
                 if (this.multi) {
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ` ${this.selectedPlaceholder}`);
                     } else if (this._selectedItems.length == 1) {
                         this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
                     } else {
@@ -465,7 +471,7 @@
                 if (items.length > 0) {
                     this._updateSelected(this.value);
                     if (this.multi) {
-                        for (var i in items) {
+                        for (var i = 0; i < items.length; i++) {
                             if (items[i].getAttribute('value')) {
                                 this.set('_attrForSelected', 'value');
                                 return;
@@ -592,7 +598,8 @@
              */
             _filter: function (searchText) {
                 var items = this.$.list.items;
-                for (var i in items) {
+                for (var i = 0; i < items.length; i++) {
+                    console.log("pos", i, items);
                     var display;
                     if (this._filterCheck(searchText, items[i])) {
                         display = 'flex';
