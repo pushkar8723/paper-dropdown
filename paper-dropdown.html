@@ -565,10 +565,14 @@
              */
             _onOpenedChanged: function (opened) {
                 if (opened) {
-                    this.fire('open');
+                    this.fire('open', null, {
+                        bubbles: false
+                    });
                 } else {
                     this.set('_searchText', '');
-                    this.fire('close');
+                    this.fire('close', null, {
+                        bubbles: false
+                    });
                 }
             },
 
