@@ -585,10 +585,10 @@
              */
             _onOpenedChanged(opened) {
                 if (opened) {
-                    this.dispatchEvent(new CustomEvent('open', {detail: null}));
+                    this.dispatchEvent(new CustomEvent('open', {detail: null, bubbles: false}));
                 } else {
                     this.set('_searchText', '');
-                    this.dispatchEvent(new CustomEvent('close', {detail: null}));
+                    this.dispatchEvent(new CustomEvent('close', {detail: null, bubbles: false}));
                 }
             }
 
