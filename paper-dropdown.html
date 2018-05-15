@@ -430,11 +430,11 @@
             _updateSelectedItemLabel: function(label) {
                 if (this.multi) {
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
+                        this.$.dropdownMenu.value = this._selectedItems.length + ' ' + this.multiLabel;
                     } else if (this._selectedItems.length == 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                        this.$.dropdownMenu.value = this._selectedItems[0].textContent.trim();
                     } else {
-                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                        this.$.dropdownMenu.value = null;
                     }
                 }
             },
