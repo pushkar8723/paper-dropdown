@@ -90,7 +90,7 @@
                         bind-value="{{_searchText}}">
                         <input
                             id="search-box"
-                            placeholder="Search..."
+                            placeholder="[[searchPlaceholder]]"
                             type="text"
                             on-tap="_stopEventPropagation"
                             on-keydown="_stopEventPropagation"
@@ -313,6 +313,7 @@
                     value: false,
                     observer: '_multiChanged'
                 },
+
                 /**
                  * Can be used to use a different language when displaying
                  * that more than one item is selected. 
@@ -321,6 +322,15 @@
                 multiLabel: {
                     type: String,
                     value: 'items selected'
+                },
+
+                /**
+                 * Placeholder text for the search input. Only visible if
+                 * `searchable` is `true`.
+                 */
+                searchPlaceholder: {
+                    type: String,
+                    value: 'Search...'
                 }
             },
             observers: [
