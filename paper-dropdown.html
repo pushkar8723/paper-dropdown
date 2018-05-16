@@ -90,7 +90,7 @@
                         bind-value="{{_searchText}}">
                         <input
                             id="search-box"
-                            placeholder="Search..."
+                            placeholder="[[searchPlaceholder]]"
                             type="text"
                             on-tap="_stopEventPropagation"
                             on-keydown="_stopEventPropagation"
@@ -313,6 +313,7 @@
                     value: false,
                     observer: '_multiChanged'
                 },
+
                 /**
                  * Can be used to use a different language when displaying
                  * that more than one item is selected. 
@@ -321,6 +322,15 @@
                 multiLabel: {
                     type: String,
                     value: 'items selected'
+                },
+
+                /**
+                 * Placeholder text for the search input. Only visible if
+                 * `searchable` is `true`.
+                 */
+                searchPlaceholder: {
+                    type: String,
+                    value: 'Search...'
                 }
             },
             observers: [
@@ -430,11 +440,11 @@
             _updateSelectedItemLabel: function(label) {
                 if (this.multi) {
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
+                        this.$.dropdownMenu.value = this._selectedItems.length + ' ' + this.multiLabel;
                     } else if (this._selectedItems.length == 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                        this.$.dropdownMenu.value = this._selectedItems[0].textContent.trim();
                     } else {
-                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                        this.$.dropdownMenu.value = null;
                     }
                 }
             },
