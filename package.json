@@ -1,0 +1,44 @@
+{
+  "name": "@pushkar8723/paper-dropdown",
+  "version": "3.0.0",
+  "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of items, key value pair and 2-way binding on value.",
+  "main": "index.js",
+  "dependencies": {
+    "@polymer/iron-form-element-behavior": "^3.0.0-pre.19",
+    "@polymer/iron-input": "^3.0.0-pre.19",
+    "@polymer/iron-validatable-behavior": "^3.0.0-pre.19",
+    "@polymer/neon-animation": "^3.0.0-pre.19",
+    "@polymer/paper-dropdown-menu": "^3.0.0-pre.19",
+    "@polymer/paper-listbox": "^3.0.0-pre.19",
+    "@polymer/polymer": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "lint-staged": "^7.1.1",
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint-staged": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pushkar8723/paper-dropdown.git"
+  },
+  "keywords": [
+    "polymer",
+    "paper-dropdown"
+  ],
+  "author": "Pushkar Anand",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pushkar8723/paper-dropdown/issues"
+  },
+  "homepage": "https://github.com/pushkar8723/paper-dropdown#readme",
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "pre-commit": "lint-staged"
+}

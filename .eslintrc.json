@@ -1,0 +1,27 @@
+{
+    "extends": [
+        "airbnb/base"
+    ],
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [ "error", 4 ],
+        "comma-dangle": "off",
+        "quotes": "off",
+        "no-underscore-dangle": "off",
+        "curly": "off",
+        "class-methods-use-this": "off",
+        "no-plusplus": "off",
+        "no-else-return": "off"
+    }
+}
