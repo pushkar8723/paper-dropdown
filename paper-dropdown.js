@@ -1,32 +1,33 @@
 /**
-@license
-    paper-dropdown: Wrapper for paper-dropdown-menu
-    Copyright (c) 2017 Pushkar Anand
+ @license
+ paper-dropdown: Wrapper for paper-dropdown-menu
+ Copyright (c) 2017 Pushkar Anand
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
-import { Polymer, html } from '@polymer/polymer/polymer-element';
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu';
-import '@polymer/paper-listbox';
-import '@polymer/iron-input';
-import PaperDropdownBehavior from './paper-dropdown-element-behavior';
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '@polymer/paper-listbox/paper-listbox.js';
+import '@polymer/iron-input/iron-input.js';
+
+//import {PaperDropdownBehavior} from './paper-dropdown-element-behavior.js';
 
 /**
  *   `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features
@@ -85,7 +86,7 @@ import PaperDropdownBehavior from './paper-dropdown-element-behavior';
  * @element paper-dropdown
  * @demo demo/index.html
  */
-class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Polymer.Element) {
+class PaperDropDown extends PolymerElement {
     /**
      * @event open is fired when `paper-dropdown` opens.
      */
@@ -277,6 +278,29 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
         };
     }
 
+    /**
+     * Checks if item satisfies the filter condition.
+     * If it satisfies and has to be shown to the user,
+     * true is returned, else false is returned.
+     *
+     * Override this method to implement your own custom filter
+     * condition.
+     *
+     * @param searchText Text user entered in search field
+     * @param item Current Item
+     * @return {boolean}
+     * @protected
+     */
+    _filterCheck(searchText, item) {
+        const currentValue = this._getItemLabel(item);
+        if (searchText === "" || currentValue === "") {
+            return true;
+        }
+
+        const re = new RegExp(searchText, "gi");
+        return (re.exec(currentValue) != null);
+    }
+
     static get observers() {
         return [
             '_filter(_searchText)',
@@ -291,6 +315,11 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
     static get template() {
         return html`
             <style>
+                :host{
+                    display: inline-block;
+                    outline: none;
+                }
+                
                 #search-box {
                     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
                     padding: 0 2px 0 16px;
@@ -302,6 +331,9 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
 
                 :host * {
                     outline: none;
+                }
+                paper-dropdown-menu{
+                    display: block;
                 }
 
                 paper-listbox {
@@ -349,7 +381,7 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
                                 bind-value="{{_searchText}}">
                             <input
                                 id="search-box"
-                                placeholder="[[searchPlaceholder]]"
+                                placeholder$="[[searchPlaceholder]]"
                                 type="text"
                                 on-tap="_stopEventPropagation"
                                 on-keydown="_stopEventPropagation"
@@ -422,7 +454,7 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
         if (this.multi) {
             this.set('value', selectedItems.map(item => this._getItemValue(item)));
 
-            const { items } = this.$.list;
+            const {items} = this.$.list;
             this.set('selected', selectedItems.map(item => items.indexOf(item)));
         }
     }
@@ -516,7 +548,7 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
      * @private
      */
     _updateSelected(value) {
-        const { items } = this.$.list;
+        const {items} = this.$.list;
         if (items.length > 0) {
             if (this.multi) {
                 this.$.list.set('selectedValues', value);
@@ -541,7 +573,7 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
      * @private
      */
     _updateValue(selected) {
-        const { items } = this.$.list;
+        const {items} = this.$.list;
         if (items.length > 0 && !this.multi) {
             if (selected > -1) {
                 this.set('value', this._getItemValue(items[selected]));
@@ -561,10 +593,10 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
      */
     _onOpenedChanged(opened) {
         if (opened) {
-            this.dispatchEvent(new CustomEvent('open', { detail: null, bubbles: false }));
+            this.dispatchEvent(new CustomEvent('open', {detail: null, bubbles: false}));
         } else {
             this.set('_searchText', '');
-            this.dispatchEvent(new CustomEvent('close', { detail: null, bubbles: false }));
+            this.dispatchEvent(new CustomEvent('close', {detail: null, bubbles: false}));
         }
     }
 
@@ -587,7 +619,7 @@ class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Poly
      * @private
      */
     _filter(searchText) {
-        const { items } = this.$.list;
+        const {items} = this.$.list;
         for (let index = 0; index < items.length; index++) {
             let display;
             if (this._filterCheck(searchText, items[index]))
