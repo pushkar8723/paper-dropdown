@@ -22,6 +22,7 @@
         "curly": "off",
         "class-methods-use-this": "off",
         "no-plusplus": "off",
-        "no-else-return": "off"
+        "no-else-return": "off",
+        "import/no-extraneous-dependencies": "off"
     }
 }

@@ -22,7 +22,8 @@
     SOFTWARE.
 */
 
-import { Polymer, html } from '@polymer/polymer/polymer-element';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu';
 import '@polymer/paper-listbox';
 import '@polymer/iron-input';
@@ -85,7 +86,7 @@ import PaperDropdownBehavior from './paper-dropdown-element-behavior';
  * @element paper-dropdown
  * @demo demo/index.html
  */
-class PaperDropDown extends Polymer.mixinBehaviors([PaperDropdownBehavior], Polymer.Element) {
+class PaperDropDown extends mixinBehaviors([PaperDropdownBehavior], PolymerElement) {
     /**
      * @event open is fired when `paper-dropdown` opens.
      */

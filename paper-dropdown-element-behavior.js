@@ -22,16 +22,15 @@
     SOFTWARE.
 */
 
-import { Polymer } from '@polymer/polymer/polymer-element';
-import '@polymer/iron-form-element-behavior';
-import '@polymer/iron-validatable-behavior';
+import { IronFormElementBehavior } from '@polymer/iron-form-element-behavior';
+import { IronValidatableBehavior } from '@polymer/iron-validatable-behavior';
 
 /**
  * Use `Polymer.PaperDropdownBehavior` to implement a custom validation
  * and filter methods.
  * @polymerBehavior Polymer.PaperDropdownBehavior
  */
-Polymer.PaperDropdownBehaviorImpl = {
+const PaperDropdownBehaviorImpl = {
     properties: {
         /**
          * Maximum number of items to be selected if item is required and
@@ -63,7 +62,7 @@ Polymer.PaperDropdownBehaviorImpl = {
      * @return {boolean}
      * @protected
      */
-    _filterCheck: (searchText, item) => {
+    _filterCheck(searchText, item) {
         const currentValue = this._getItemLabel(item);
         if (searchText === "" || currentValue === "") {
             return true;
@@ -79,7 +78,7 @@ Polymer.PaperDropdownBehaviorImpl = {
      * @return {boolean} true if required is true and has atleast one value OR values selected
      *                      is greater than minLenght but less than max length.
      */
-    _getValidity: () => {
+    _getValidity() {
         if (this.multi) {
             if (this.disabled) {
                 // Return true if disabled.
@@ -113,7 +112,7 @@ Polymer.PaperDropdownBehaviorImpl = {
 
 /** @polymerBehavior Polymer.PaperDropdownBehavior */
 export default [
-    Polymer.IronFormElementBehavior,
-    Polymer.IronValidatableBehavior,
-    Polymer.PaperDropdownBehaviorImpl
+    IronFormElementBehavior,
+    IronValidatableBehavior,
+    PaperDropdownBehaviorImpl
 ];
