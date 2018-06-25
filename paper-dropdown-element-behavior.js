@@ -110,9 +110,13 @@ const PaperDropdownBehaviorImpl = {
     }
 };
 
-/** @polymerBehavior Polymer.PaperDropdownBehavior */
-export default [
+/** @polymerBehavior PaperDropdownBehavior */
+export const PaperDropdownBehavior = [
     IronFormElementBehavior,
     IronValidatableBehavior,
     PaperDropdownBehaviorImpl
 ];
+
+export default {
+    behavior: PaperDropdownBehavior
+};

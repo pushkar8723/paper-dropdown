@@ -27,7 +27,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu';
 import '@polymer/paper-listbox';
 import '@polymer/iron-input';
-import PaperDropdownBehavior from './paper-dropdown-element-behavior';
+import { PaperDropdownBehavior } from './paper-dropdown-element-behavior';
 
 /**
  *   `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features
