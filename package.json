@@ -2,7 +2,7 @@
   "name": "@pushkar8723/paper-dropdown",
   "version": "3.0.0",
   "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of items, key value pair and 2-way binding on value.",
-  "main": "index.js",
+  "main": "index.html",
   "dependencies": {
     "@polymer/iron-form-element-behavior": "^3.0.0-pre.19",
     "@polymer/iron-input": "^3.0.0-pre.19",
