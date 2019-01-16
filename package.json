@@ -1,6 +1,6 @@
 {
   "name": "@pushkar8723/paper-dropdown",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of items, key value pair and 2-way binding on value.",
   "main": "index.html",
   "dependencies": {
@@ -30,7 +30,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint-staged": "lint-staged",
     "lint": "eslint **/**.js",
-    "build": "polymer build --npm --entrypoint index.html"
+    "build": "polymer build --npm --entrypoint index.html --html-minify --js-minify --css-minify",
+    "start": "polymer serve --npm"
   },
   "repository": {
     "type": "git",
