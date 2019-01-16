@@ -5,6 +5,10 @@
 `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
 items, key value pair and 2-way binding on value.
 
+**Doc:** https://paper-dropdown.netlify.com/#/elements/paper-dropdown
+
+**Demo:** https://paper-dropdown.netlify.com/#/elements/paper-dropdown/demos/demo/index.html
+
 Values can be bound using `value` attribute.
 
 **Example**
