@@ -102,7 +102,7 @@ const PaperDropdownBehaviorImpl = {
                 return true;
             } else {
                 // Item is required so value must be set.
-                return (this.value != null && this.value !== "");
+                return (this.value != null && this.value !== "" && this.value.length !== 0);
             }
         } else {
             return this.disabled || !this.required || (this.value != null && this.value !== "");
