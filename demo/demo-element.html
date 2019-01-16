@@ -1,0 +1,38 @@
+<link rel="import" href="../../polymer/polymer-element.html" />
+<link rel="import" href="../paper-dropdown.html" />
+<link rel="import" href="../../paper-item/paper-item.html" />
+
+<dom-module id="demo-element">
+    <template>
+        <!-- <paper-dropdown multi label="Fruit" value="{{value}}">
+            <paper-item value="apple">Apple</paper-item>
+            <paper-item value="mango">Mango</paper-item>
+            <paper-item value="banana">Banana</paper-item>
+            <paper-item value="tomato">Tomato</paper-item>
+        </paper-dropdown> -->
+        <div>{{theValue}}</div>
+    </template>
+    <script>
+        class DemoElement extends Polymer.Element {
+            static get is() {
+                return 'demo-element'
+            }
+
+            static get properties() {
+                return {
+                    value: {
+                        type: Array,
+                        value: function() { return ['apple', 'banana']; },
+                        observer: '_valueUpdated'
+                    }
+                }
+            }
+
+            _valueUpdated(value) {
+                console.log(value);
+            }
+        }
+
+        window.customElements.define(DemoElement.is, DemoElement);
+    </script>
+</dom-module>

@@ -22,13 +22,15 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
     "lint-staged": "^7.1.1",
+    "polymer-cli": "^1.9.5",
     "pre-commit": "^1.2.2",
     "web-animations-js": "^2.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint-staged": "lint-staged",
-    "lint": "eslint **/**.js"
+    "lint": "eslint **/**.js",
+    "build": "polymer build --npm --entrypoint index.html"
   },
   "repository": {
     "type": "git",
