@@ -1,13 +1,66 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/pushkar8723/paper-dropdown)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@pushkar8723/paper-dropdown)
+[![npm version](https://badge.fury.io/js/%40pushkar8723%2Fpaper-dropdown.svg)](https://badge.fury.io/js/%40pushkar8723%2Fpaper-dropdown)
+[![Build Status](https://travis-ci.org/pushkar8723/paper-dropdown.svg?branch=master)](https://travis-ci.org/pushkar8723/paper-dropdown)
 
 ## &lt;paper-dropdown&gt;
 
 `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
 items, key value pair and 2-way binding on value.
 
-**Doc:** https://paper-dropdown.netlify.com/#/elements/paper-dropdown
+[Documentation](https://paper-dropdown.netlify.com/#/elements/paper-dropdown)
+[Demo](https://paper-dropdown.netlify.com/#/elements/paper-dropdown/demos/demo/index.html)
 
-**Demo:** https://paper-dropdown.netlify.com/#/elements/paper-dropdown/demos/demo/index.html
+
+## Usage
+
+### Installation
+```
+npm install --save @pushkar8723/paper-dropdown
+```
+
+### In an html file
+```html
+<html>
+  <head>
+    <script type="module">
+      import '@pushkar8723/paper-dropdown/paper-dropdown.js';
+      import '@polymer/paper-item/paper-item.js';
+    </script>
+  </head>
+  <body>
+    <paper-dropdown label="Fruit">
+        <paper-item>Apple</paper-item>
+        <paper-item>Banana</paper-item>
+        <paper-item>Mango</paper-item>
+        <paper-item>Orange</paper-item>
+        <paper-item>Tomato</paper-item>
+    </paper-dropdown>
+  </body>
+</html>
+```
+### In a Polymer 3 element
+```js
+import {PolymerElement, html} from '@polymer/polymer';
+import '@pushkar8723/paper-dropdown/paper-dropdown.js';
+import '@polymer/paper-item/paper-item.js';
+
+class SampleElement extends PolymerElement {
+  static get template() {
+    return html`
+      <paper-dropdown label="Fruit">
+        <paper-item>Apple</paper-item>
+        <paper-item>Banana</paper-item>
+        <paper-item>Mango</paper-item>
+        <paper-item>Orange</paper-item>
+        <paper-item>Tomato</paper-item>
+      </paper-dropdown-menu>
+    `;
+  }
+}
+customElements.define('sample-element', SampleElement);
+```
+
+## Use Cases
 
 Values can be bound using `value` attribute.
 
