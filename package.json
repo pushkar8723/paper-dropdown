@@ -11,7 +11,7 @@
     "@polymer/paper-dropdown-menu": "^3.0.0-pre.19",
     "@polymer/paper-listbox": "^3.0.0-pre.19",
     "@polymer/polymer": "^3.0.2",
-    "@webcomponents/webcomponentsjs": "^2.0.2"
+    "@webcomponents/webcomponentsjs": "^2.2.7"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^3.0.0-pre.21",
@@ -20,9 +20,9 @@
     "@polymer/paper-item": "^3.0.0-pre.21",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-import": "^2.16.0",
     "lint-staged": "^7.1.1",
-    "polymer-cli": "^1.9.5",
+    "polymer-cli": "^1.9.7",
     "pre-commit": "^1.2.2",
     "web-animations-js": "^2.3.1"
   },
@@ -46,7 +46,7 @@
   "bugs": {
     "url": "https://github.com/pushkar8723/paper-dropdown/issues"
   },
-  "homepage": "https://github.com/pushkar8723/paper-dropdown#readme",
+  "homepage": "https://paper-dropdown.netlify.com/#/elements/paper-dropdown",
   "lint-staged": {
     "*.js": "eslint"
   },
